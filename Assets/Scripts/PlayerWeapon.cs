@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerWeapon : MonoBehaviour
 {
 
-    Stats stats;
+    public Stats BaseStats;
 
-
+    //public Stats[] ColorModifiers;
 
 
     // Start is called before the first frame update
