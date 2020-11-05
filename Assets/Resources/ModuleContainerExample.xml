@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Modules>
+	<ModuleName Name = "Red" Color ="#FF0000">
+		<Stat stat = "Damage" modifier = "1"/>
+		<Stat stat = "Health" modifier = "-1"/>
+		<Stat stat = "ShotSpeed" modifier = "-1"/>
+	</ModuleName>
+  
+  <ModuleName Name = "Orange" Color ="#FF7700">
+    <Stat stat = "FireSpeed" modifier = "1"/>
+    <Stat stat = "Damage" modifier = "-1"/>
+    <Stat stat = "MoveSpeed" modifier = "-1"/>
+  </ModuleName>
+  
+  <ModuleName Name = "Yellow" Color ="#F2F200">
+		<Stat stat = "ShotSpeed" modifier = "1"/>
+		<Stat stat = "Shots" modifier = "-1"/>
+		<Stat stat = "FireSpeed" modifier = "-1"/>
+	</ModuleName>
+
+  <ModuleName Name = "Green" Color ="#15FF00">
+    <Stat stat = "Shots" modifier = "1"/>
+    <Stat stat = "FireSpeed" modifier = "-1"/>
+    <Stat stat = "Damage" modifier = "-1"/>
+  </ModuleName>
+
+  <ModuleName Name = "Blue" Color ="#0084FF">
+    <Stat stat = "Health" modifier = "1"/>
+    <Stat stat = "MoveSpeed" modifier = "-1"/>
+    <Stat stat = "Shots" modifier = "-1"/>
+  </ModuleName>
+
+  <ModuleName Name = "Violet" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+</Modules>

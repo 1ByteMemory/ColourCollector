@@ -1,27 +1,36 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerWeapon : MonoBehaviour
 {
 
-    public Stats stats;
+    public Text text;
+    public int index;
 
-    string _name = "Damage";
-    //public Stats[] ColorModifiers;
-
-
+    Module[] moduleContianer;
+    
     // Start is called before the first frame update
     void Start()
     {
-        Stats.SetVariable(stats, _name, 10);
-        Debug.Log(Stats.GetValue(stats, _name).ToString());
+        moduleContianer = ModuleLoader.LoadModules();
+
+        if (moduleContianer == null) return;
+        
+        foreach (Module item in moduleContianer)
+        {
+            text.text += item.moduleName + "\n";
+        }
+
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        //text.text = contianer.ToString();
     }
 }
