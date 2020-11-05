@@ -6,6 +6,8 @@ using UnityEngine;
 [Serializable]
 public class Stats
 {
+	#region Stats
+
 	private int damage;
     private int shotSpeed;
     private int firingSpeed;
@@ -43,21 +45,102 @@ public class Stats
 		set { moveSpeed = value; }
 	}
 
+	#endregion
 
-	public static object GetValue(object stats, string variable)
+	#region Minimum stats
+
+	private int minDamage;
+	private int minShotSpeed;
+	private int minFiringSpeed;
+	private int minShots;
+	private int minHealth;
+	private int minMoveSpeed;
+
+	public int MinDamage
 	{
-		Type type = stats.GetType();
-		PropertyInfo info = type.GetProperty(variable, BindingFlags.Public | BindingFlags.Instance);
+		get { return minDamage; }
+		set { minDamage = value; }
+	}
+	public int MinShotSpeed
+	{
+		get { return minShotSpeed; }
+		set { minShotSpeed = value; }
+	}
+	public int MinFiringSpeed
+	{
+		get { return minFiringSpeed; }
+		set { minFiringSpeed = value; }
+	}
+	public int MinShots
+	{
+		get { return minShots; }
+		set { minShots = value; }
+	}
+	public int MinHealth
+	{
+		get { return minHealth; }
+		set { minHealth = value; }
+	}
+	public int MinMoveSpeed
+	{
+		get { return minMoveSpeed; }
+		set { minMoveSpeed = value; }
+	}
+	
+	#endregion
+
+
+
+	public PropertyInfo[] GetMinVariables()
+	{
+		Type type = GetType();
+		PropertyInfo[] info = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+		PropertyInfo[] minVars = new PropertyInfo[info.Length / 2];
 		
-		return info.GetValue(stats);
+		for (int i = 0; i < minVars.Length; i++)
+		{
+			// 6 is where the min variables start
+			minVars[i] = info[i + 6];
+		}
+
+		return minVars;
+	}
+	public PropertyInfo[] GetStatVariables()
+	{
+		System.Type type = GetType();
+		PropertyInfo[] info = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+		PropertyInfo[] minVars = new PropertyInfo[info.Length / 2];
+
+		// 6 is where the min variables start
+		for (int i = 0; i < minVars.Length; i++)
+		{
+			minVars[i] = info[i];
+		}
+		return minVars;
+	}
+	public PropertyInfo[] GetAllVariables()
+	{
+		Type type = GetType();
+		PropertyInfo[] info = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);
+		
+		return info;
 	}
 
-	public static void SetVariable(object stats, string variable, int value)
+
+	public object GetValue(string variable)
 	{
-		Type type = stats.GetType();
+		Type type = GetType();
+		PropertyInfo info = type.GetProperty(variable, BindingFlags.Public | BindingFlags.Instance);
+		
+		return info.GetValue(this);
+	}
+
+	public void SetVariable(string variable, int value)
+	{
+		Type type = GetType();
 		PropertyInfo info = type.GetProperty(variable, BindingFlags.Public | BindingFlags.Instance);
 
-		info.SetValue(stats, value);
+		info.SetValue(this, value);
 	}
 }
 

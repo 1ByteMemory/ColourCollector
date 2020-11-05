@@ -20,15 +20,11 @@ public class ModuleLoader
 		{
             if (folder[i].GetType() == typeof(TextAsset))
             {
-
-                Debug.Log("loading: " + folder[i].name);
                 TextAsset binary = (TextAsset)Resources.Load(folder[i].name);
 
 				try
 				{
-                    Debug.Log(binary.text);
                     container.Add(ModuleIO.ReadModule(binary.text));
-
 				}
 				catch (System.NullReferenceException)
 				{
