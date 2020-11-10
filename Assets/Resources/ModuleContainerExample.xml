@@ -35,4 +35,34 @@
     <Stat stat = "ShotSpeed" modifier = "-1"/>
     <Stat stat = "Health" modifier = "-1"/>
   </ModuleName>
+  <ModuleName Name = "a" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+  <ModuleName Name = "s" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+  <ModuleName Name = "d" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+  <ModuleName Name = "f" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+  <ModuleName Name = "g" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
+  <ModuleName Name = "v" Color ="#4400FF">
+    <Stat stat = "MoveSpeed" modifier = "1"/>
+    <Stat stat = "ShotSpeed" modifier = "-1"/>
+    <Stat stat = "Health" modifier = "-1"/>
+  </ModuleName>
 </Modules>

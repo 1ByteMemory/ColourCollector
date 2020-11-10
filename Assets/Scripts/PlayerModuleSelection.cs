@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class PlayerModuleSelection : MonoBehaviour
 {
-    Module[] moduleContainer;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        moduleContainer = ModuleLoader.LoadModules();
+        //moduleContainer = ModuleLoader.LoadModules();
 
     }
 

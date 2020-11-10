@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class PlayerWeapon : MonoBehaviour
 {
     public GameObject addStatsPage;
+    public GameObject modifierPage;
+    public GameObject modifierList;
+    public GameObject[] addedModifires = new GameObject[4];
+
     public Button addStatButton;
     public float addStatButtonDistance = 50;
     public Sprite panelSprite;
@@ -17,10 +21,15 @@ public class PlayerWeapon : MonoBehaviour
     Stats playerStats = new Stats();
     PropertyInfo[] minStats;
 
+    Module[] loadedModules;
+    public RectTransform UIModuleHolder;
+
+
     // Start is called before the first frame update
     void Start()
     {
         minStats = playerStats.GetMinVariables();
+        loadedModules = ModuleLoader.LoadModules();
 
 		foreach (PropertyInfo stat in minStats)
 		{
@@ -37,41 +46,29 @@ public class PlayerWeapon : MonoBehaviour
 
     public void InisiatePanel()
 	{
-        GameObject panel = Instantiate(new GameObject(), addStatsPage.transform);
-
-        RectTransform rect = panel.AddComponent<RectTransform>();
-        panel.AddComponent<CanvasRenderer>();
-        Image img = panel.AddComponent<Image>();
-
-        rect.sizeDelta = new Vector2(0, 0);
-        rect.anchorMin = Vector2.zero;
-        rect.anchorMax = Vector2.one;
-        rect.anchoredPosition = new Vector2(0, -40);
-
-        img.sprite = panelSprite;
-        img.type = Image.Type.Sliced;
-        img.fillCenter = true;
-        img.pixelsPerUnitMultiplier = 1;
-
-        float spacing = -10;
-
-		foreach (var item in minStats)
+        float posYOffset = -30;
+        float prevPos = 0;
+        foreach (Module item in loadedModules)
 		{
-            GameObject button = Instantiate(addStatButton.gameObject, panel.transform);
+            GameObject button = Instantiate(addStatButton.gameObject, UIModuleHolder.transform);
             RectTransform buttonRect = button.GetComponent<RectTransform>();
+
+            buttonRect.anchoredPosition = new Vector2(0, prevPos + posYOffset);
+            prevPos = buttonRect.anchoredPosition.y;
+
+            Text text = button.GetComponentInChildren<Text>();
+            text.text = item.moduleName;
             
-            buttonRect.sizeDelta = new Vector2(-10, 5);
-            buttonRect.anchorMin = new Vector2(0, 0);
-            buttonRect.anchorMax = new Vector2(1, 1);
-            buttonRect.anchoredPosition = new Vector2(0, -10);
-            buttonRect.localPosition = new Vector3(0, spacing);
-            spacing -= addStatButtonDistance;
+            button.GetComponentInChildren<Image>().color = item.color;
 
-		}
+            button.GetComponent<Button>().onClick.AddListener(delegate { AddModule(item); });
+        }
+    }
 
 
-
+    public void AddModule(Module module)
+	{
+        
 	}
-
 
 }
