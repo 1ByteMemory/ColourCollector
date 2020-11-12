@@ -10,6 +10,7 @@ public class UIModuleSelector : MonoBehaviour
     public GameObject addModuleButton;
     public PlayerStats playerStats;
     public Text displayText;
+    public Text statsText;
 
     [Header("UI Objects")]
     public GameObject loadedModulesViewer;
@@ -19,20 +20,20 @@ public class UIModuleSelector : MonoBehaviour
     Module[] moduleList;
     Module[] loadedModules;
     public int maxModules;
-    int currIndex;
     int slotsTaken;
 
 
     [Header("Stats")]
     Stats minStats = new Stats();
-    Stats modifiedStats;
     PropertyInfo[] minProperties;
 
+    public PlayerStats player;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        displayText.text = "";
         loadedModules = ModuleLoader.LoadModules();
         moduleList = new Module[maxModules];
 
@@ -40,7 +41,10 @@ public class UIModuleSelector : MonoBehaviour
         foreach (var info in minProperties)
         {
             minStats.SetVariable(info.Name, 1);
+
         }
+
+        DisplayModifiedStats();
 
         DisplayLoadedModules();
         UpdateViewer();
@@ -52,7 +56,7 @@ public class UIModuleSelector : MonoBehaviour
         {
 			for (int i = 0; i < moduleList.Length; i++)
 			{
-                if (moduleList[i] == null)
+                if (moduleList[i] == null || moduleList[i].moduleName == "NULL")
 				{
                     moduleList[i] = moduleToAdd;
                     break;
@@ -61,6 +65,7 @@ public class UIModuleSelector : MonoBehaviour
             slotsTaken++;
 
             UpdateViewer();
+            DisplayModifiers();
         }
     }
 
@@ -70,7 +75,41 @@ public class UIModuleSelector : MonoBehaviour
         moduleList[index] = null;
 
         UpdateViewer();
-	}
+        DisplayModifiers();
+    }
+    void DisplayModifiers()
+	{
+        Dictionary<string, int> displayModifiers = new Dictionary<string, int>();
+
+        foreach (Module module in moduleList)
+        {
+            if (module != null)
+            {
+                foreach (var key in module.statModifiers)
+                {
+                    if (displayModifiers.ContainsKey(key.Key))
+                    {
+                        displayModifiers[key.Key] += key.Value;
+                    }
+                    else
+                    {
+                        displayModifiers.Add(key.Key, key.Value);
+                    }
+                }
+            }
+        }
+
+        // Display Modifications
+        displayText.text = "";
+        foreach (var item in displayModifiers)
+        {
+            if (item.Key != "NULL")
+            {
+                string positive = item.Value < 0 ? "" : "+";
+                displayText.text += string.Format("{0}{1} {2}\n", positive, item.Value, item.Key);
+            }
+        }
+    }
 
     void UpdateViewer()
 	{
@@ -100,8 +139,8 @@ public class UIModuleSelector : MonoBehaviour
             prevPos = buttonRect.anchoredPosition.y - buttonRect.sizeDelta.y;
 
             Text text = button.GetComponentInChildren<Text>();
-            
-            if (moduleList[i] != null)
+
+            if (moduleList[i] != null && moduleList[i].moduleName != "NULL")
 			{
                 text.text = moduleList[i].moduleName;
                 button.GetComponentInChildren<Image>().color = moduleList[i].color;
@@ -123,21 +162,43 @@ public class UIModuleSelector : MonoBehaviour
     public void ApplyModules()
 	{
         playerStats.ApplyModifiers(ApplyModules(moduleList));
+
+        DisplayModifiedStats();
 	}
+
+    void DisplayModifiedStats()
+	{
+        statsText.text = "";
+        foreach (var item in player.playerStats.GetAllVariables())
+        {
+            int value = (int)item.GetValue(player.playerStats);
+            string positive = value < 0 ? "" : "+";
+            statsText.text += string.Format("{0}{1} {2}\n", positive, value, item.Name);
+        }
+    }
 
     Stats ApplyModules(Module[] moduleList)
     {
         Stats newStats = new Stats();
 
         // Apply the modifiers for each module
-        foreach (Module module in moduleList)
+        for (int i = 0; i < moduleList.Length; i++)
         {
-            foreach (var modifier in module.statModifiers)
+            if (moduleList[i] == null)
             {
-                int newValue = (int)newStats.GetValue(modifier.Key);
-                newValue += modifier.Value;
+				moduleList[i] = new Module();
+                moduleList[i].moduleName = "NULL";
+                moduleList[i].statModifiers.Add("NULL", 0);
+            }
 
-                newStats.SetVariable(modifier.Key, newValue);
+            foreach (var modifier in moduleList[i].statModifiers)
+            {
+                var newValue = newStats.GetValue(modifier.Key);
+
+				if (newValue == null) newValue = 0;
+                else newValue = (int)newValue + modifier.Value;
+
+                newStats.SetVariable(modifier.Key, (int)newValue);
             }
         }
 

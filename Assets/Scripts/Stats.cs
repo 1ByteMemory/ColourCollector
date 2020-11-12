@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using System.Reflection;
 
 [Serializable]
@@ -59,7 +60,7 @@ public class Stats
 		Type type = GetType();
 		PropertyInfo info = type.GetProperty(variable, BindingFlags.Public | BindingFlags.Instance);
 		
-		return info.GetValue(this);
+		return info != null ? info.GetValue(this) : null;
 	}
 
 	public void SetVariable(string variable, int value)
@@ -67,6 +68,6 @@ public class Stats
 		Type type = GetType();
 		PropertyInfo info = type.GetProperty(variable, BindingFlags.Public | BindingFlags.Instance);
 
-		info.SetValue(this, value);
+		if (info != null) info.SetValue(this, value);
 	}
 }
