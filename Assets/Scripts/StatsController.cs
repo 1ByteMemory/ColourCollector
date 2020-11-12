@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class StatsController : MonoBehaviour
 {
@@ -10,13 +9,14 @@ public class StatsController : MonoBehaviour
     Stats minStats = new Stats();
     PropertyInfo[] minProperties;
 
-    Stats baseStats = new Stats();
-    PropertyInfo[] baseProperties;
-
     // Start is called before the first frame update
     void Start()
     {
-
+        minProperties = minStats.GetAllVariables();
+		foreach (var info in minProperties)
+		{
+            minStats.SetVariable(info.Name, 1);
+		}
     }
 
     public Stats ApplyModules(Module[] moduleList)
@@ -46,7 +46,7 @@ public class StatsController : MonoBehaviour
 
             if (value < minValue)
 			{
-                newStats.SetVariable(properties[i].Name, minValue);
+                newStats.SetVariable(properties[i].Name, 0);
 			}
 		}
 
