@@ -9,6 +9,7 @@ public class UIModuleSelector : MonoBehaviour
 
     public GameObject addModuleButton;
     public PlayerStats playerStats;
+    public Text displayText;
 
     [Header("UI Objects")]
     public GameObject loadedModulesViewer;
@@ -73,7 +74,12 @@ public class UIModuleSelector : MonoBehaviour
 
     void UpdateViewer()
 	{
-        float prevPos = -15;
+
+        // ------------------------------------ //
+        // Display the module button
+        // ------------------------------------ //
+
+		float prevPos = -15;
 
         RectTransform viewerRect = modulesToAddViewer.GetComponent<RectTransform>();
 
@@ -107,9 +113,9 @@ public class UIModuleSelector : MonoBehaviour
                 button.GetComponentInChildren<Image>().color = Color.white * 0.5f;
             }
         }
-    }
+	}
 
-    void AddDelegate(Button button, int index)
+	void AddDelegate(Button button, int index)
 	{
         button.onClick.AddListener(() => RemoveModule(index));
 	}

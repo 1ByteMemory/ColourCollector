@@ -701,7 +701,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 15
   m_Viewport: {fileID: 940467151}
   m_HorizontalScrollbar: {fileID: 53160488}
   m_VerticalScrollbar: {fileID: 1594540012}
@@ -2189,7 +2189,7 @@ MonoBehaviour:
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 15
   m_Viewport: {fileID: 1456816431}
   m_HorizontalScrollbar: {fileID: 1730044243}
   m_VerticalScrollbar: {fileID: 62484319}
@@ -2269,7 +2269,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000076293945}
+  m_AnchoredPosition: {x: 0, y: -0.000038146973}
   m_SizeDelta: {x: 0, y: 327.45804}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1915846314
@@ -2469,6 +2469,7 @@ MonoBehaviour:
   addModuleButton: {fileID: 2681253413091712405, guid: 9129c68b0b72a0c4d9b4d15745140e1c,
     type: 3}
   playerStats: {fileID: 1179986078}
+  displayText: {fileID: 0}
   loadedModulesViewer: {fileID: 1907725764}
   modulesToAddViewer: {fileID: 1969339267}
   maxModules: 4
@@ -2504,6 +2505,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000022849874}
+  m_AnchoredPosition: {x: 0, y: -0.000018398643}
   m_SizeDelta: {x: 0, y: 320.65533}
   m_Pivot: {x: 0, y: 1}
