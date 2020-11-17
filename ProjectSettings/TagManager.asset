@@ -44,11 +44,11 @@ TagManager:
   - name: BackGround
     uniqueID: 2087349731
     locked: 0
-  - name: ForeGround
-    uniqueID: 2136819323
-    locked: 0
   - name: MidGround
     uniqueID: 3855607585
+    locked: 0
+  - name: ForeGround
+    uniqueID: 2136819323
     locked: 0
   - name: Action
     uniqueID: 3101146261
