@@ -4,18 +4,42 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     public Stats stats;
+	public Stats startingStats;
 
-    public void ApplyModifiers(Stats statsToChange)
+	Stats minStats = new Stats();
+	PropertyInfo[] minProperties;
+
+	private void Start()
 	{
-        PropertyInfo[] playerInfo = stats.GetAllVariables();
-        PropertyInfo[] statsInfo = new Stats().GetAllVariables();
-
-		for (int i = 0; i < playerInfo.Length; i++)
+		minProperties = minStats.GetAllVariables();
+		foreach (var info in minProperties)
 		{
-            int playerValue = (int)playerInfo[i].GetValue(stats);
-			int valueToAdd = (int)statsInfo[i].GetValue(statsToChange);
+			minStats.SetVariable(info.Name, 1);
 
-            stats.SetVariable(playerInfo[i].Name, playerValue + valueToAdd);
+		}
+	}
+
+
+	public void ApplyModifiers(Stats statsToAdd)
+	{
+		//stats = startingStats;
+
+        PropertyInfo[] startingInfo = startingStats.GetAllVariables();
+        PropertyInfo[] statsInfo = statsToAdd.GetAllVariables();
+		minProperties = minStats.GetAllVariables();
+
+		for (int i = 0; i < startingInfo.Length; i++)
+		{
+
+			int playerValue = (int)startingInfo[i].GetValue(startingStats);
+			int valueToAdd = (int)statsInfo[i].GetValue(statsToAdd);
+			int minValue = (int)minProperties[i].GetValue(minStats);
+
+
+			int newValue = playerValue + valueToAdd;
+			if (newValue < minValue) newValue = minValue;
+
+			stats.SetVariable(startingInfo[i].Name, newValue);
 		}
 	}
 }

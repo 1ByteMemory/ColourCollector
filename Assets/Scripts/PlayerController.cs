@@ -18,6 +18,13 @@ public class PlayerController : MonoBehaviour
     {
         playerStats = GetComponent<PlayerStats>();
 
+        playerStats.startingStats.Damage = base_damage;
+        playerStats.startingStats.ShotSpeed = base_shotSpeed;
+        playerStats.startingStats.FiringSpeed = base_firingSpeed;
+        playerStats.startingStats.Shots = base_shots;
+        playerStats.startingStats.Health = base_health;
+        playerStats.startingStats.MoveSpeed = base_moveSpeed;
+
         playerStats.stats.Damage = base_damage;
         playerStats.stats.ShotSpeed = base_shotSpeed;
         playerStats.stats.FiringSpeed = base_firingSpeed;
@@ -38,8 +45,7 @@ public class PlayerController : MonoBehaviour
 
     void MovePlayer()
 	{
-        Vector3 translation = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0).normalized;
-        transform.Translate(translation, Space.World);
+        Vector3 translation = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        transform.Translate(translation * playerStats.stats.MoveSpeed * Time.deltaTime);
 	}
-
 }

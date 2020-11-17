@@ -24,25 +24,19 @@ public class UIModuleSelector : MonoBehaviour
 
 
     [Header("Stats")]
-    Stats minStats = new Stats();
-    PropertyInfo[] minProperties;
 
-    public PlayerStats player;
+
+    PlayerStats player;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+
         displayText.text = "";
         loadedModules = ModuleLoader.LoadModules();
         moduleList = new Module[maxModules];
-
-        minProperties = minStats.GetAllVariables();
-        foreach (var info in minProperties)
-        {
-            minStats.SetVariable(info.Name, 1);
-
-        }
 
         DisplayModifiedStats();
 
@@ -193,30 +187,22 @@ public class UIModuleSelector : MonoBehaviour
 
             foreach (var modifier in moduleList[i].statModifiers)
             {
-                var newValue = newStats.GetValue(modifier.Key);
+				try
+				{
+                    int newValue = (int)newStats.GetValue(modifier.Key);
+                    newValue += modifier.Value;
 
-				if (newValue == null) newValue = 0;
-                else newValue = (int)newValue + modifier.Value;
+                    newStats.SetVariable(modifier.Key, newValue);
+				}
+				catch (System.NullReferenceException)
+				{
+                    if (modifier.Key == "NULL") continue;
 
-                newStats.SetVariable(modifier.Key, (int)newValue);
+                    Debug.LogError("\"" + modifier.Key + "\" Variable does not exist.");
+					throw;
+				}
             }
         }
-
-        minProperties = minStats.GetAllVariables();
-        PropertyInfo[] properties = newStats.GetAllVariables();
-
-        // If any property is below the minimum stats, set to the minimum
-        for (int i = 0; i < properties.Length; i++)
-        {
-            int value = (int)properties[i].GetValue(newStats);
-            int minValue = (int)minProperties[i].GetValue(minStats);
-
-            if (value < minValue)
-            {
-                newStats.SetVariable(properties[i].Name, minValue);
-            }
-        }
-
         return newStats;
     }
 

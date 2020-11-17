@@ -7,20 +7,18 @@
 	</ModuleName>
   
   <ModuleName Name = "Orange" Color ="#FF7700">
-    <Stat stat = "FireSpeed" modifier = "1"/>
-    <Stat stat = "Damage" modifier = "-1"/>
-    <Stat stat = "MoveSpeed" modifier = "-1"/>
+    <Stat stat = "FiringSpeed" modifier = "1"/>
   </ModuleName>
   
   <ModuleName Name = "Yellow" Color ="#F2F200">
 		<Stat stat = "ShotSpeed" modifier = "1"/>
 		<Stat stat = "Shots" modifier = "-1"/>
-		<Stat stat = "FireSpeed" modifier = "-1"/>
+		<Stat stat = "FiringSpeed" modifier = "-1"/>
 	</ModuleName>
 
   <ModuleName Name = "Green" Color ="#15FF00">
     <Stat stat = "Shots" modifier = "1"/>
-    <Stat stat = "FireSpeed" modifier = "-1"/>
+    <Stat stat = "FiringSpeed" modifier = "-1"/>
     <Stat stat = "Damage" modifier = "-1"/>
   </ModuleName>
 
