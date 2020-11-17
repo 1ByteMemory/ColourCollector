@@ -169,9 +169,9 @@ public class UIModuleSelector : MonoBehaviour
     void DisplayModifiedStats()
 	{
         statsText.text = "";
-        foreach (var item in player.playerStats.GetAllVariables())
+        foreach (var item in player.stats.GetAllVariables())
         {
-            int value = (int)item.GetValue(player.playerStats);
+            int value = (int)item.GetValue(player.stats);
             string positive = value < 0 ? "" : "+";
             statsText.text += string.Format("{0}{1} {2}\n", positive, value, item.Name);
         }
@@ -213,7 +213,7 @@ public class UIModuleSelector : MonoBehaviour
 
             if (value < minValue)
             {
-                newStats.SetVariable(properties[i].Name, 0);
+                newStats.SetVariable(properties[i].Name, minValue);
             }
         }
 
