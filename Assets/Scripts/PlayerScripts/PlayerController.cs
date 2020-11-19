@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerStats = GetComponent<PlayerStats>();
-
+        
         playerStats.startingStats.Damage = base_damage;
         playerStats.startingStats.ShotSpeed = base_shotSpeed;
         playerStats.startingStats.FiringSpeed = base_firingSpeed;

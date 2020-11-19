@@ -14,19 +14,31 @@ public class Weapon
     [HideInInspector]
     public int damage, projectilesPerShot;
 
+    private float endTime;
+
     public void Fire(Vector2 origin, Vector2 direction)
 	{
-        BulletSpread(new Vector2(0, 0), origin, direction);
+        if (Time.time >= endTime)
+        {
+            
+            endTime = firingSpeed / ;
 
-		for (int i = 0; i < projectilesPerShot; i++)
-		{
-            GameObject bullet = GameObject.Instantiate(projectile, origin, new Quaternion());
-            Projectile proj = bullet.GetComponent<Projectile>();
+            Debug.Log(endTime);
 
-            proj.speed = travelSpeed;
-            proj.range = range;
+            Vector2[] spread = BulletSpread(new Vector2(0, 0), origin, direction);
 
-		}
+            for (int i = 0; i < projectilesPerShot; i++)
+            {
+                GameObject bullet = GameObject.Instantiate(projectile, origin, new Quaternion());
+                bullet.transform.up = (direction + spread[i]).normalized;
+
+                Projectile proj = bullet.GetComponent<Projectile>();
+
+                proj.speed = travelSpeed;
+                proj.range = range;
+
+            }
+        }
 	}
 
     /// <summary>

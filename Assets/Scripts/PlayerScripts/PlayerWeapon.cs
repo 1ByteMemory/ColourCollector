@@ -20,7 +20,9 @@ public class PlayerWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Fire"))
+        if (Cursor.visible) return;
+
+        if (Input.GetButtonDown("Fire1"))
 		{
             weapon.damage = stats.Damage;
             weapon.travelSpeed = stats.ShotSpeed;
