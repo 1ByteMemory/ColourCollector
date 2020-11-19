@@ -1,24 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class DamageNumbers : MonoBehaviour
 {
     public float duration;
-    public string dispalyText;
+    [HideInInspector]
+	public string dispalyText;
+    [HideInInspector]
     public Color color;
 
-	Text text;
+	TextMeshProUGUI text;
 
 	float startTime;
 	
 	private void OnEnable()
 	{
-		text = GetComponent<Text>();
-		text.color = color;
-		text.text = dispalyText;
-
+		text = GetComponentInChildren<TextMeshProUGUI>();
 		startTime = Time.time;
 	}
 
@@ -29,11 +28,13 @@ public class DamageNumbers : MonoBehaviour
 		transform.Translate(Vector3.up * Time.deltaTime);
 
 		float alpha = (Time.time - startTime) / duration;
-		Color col = text.color;
-
-		col.a = alpha;
+		Color col = color;
+		
+		col.a = 1 - alpha;
 
 		text.color = col;
+		text.text = dispalyText;
 
+		if (alpha >= 1f) Destroy(gameObject);
     }
 }

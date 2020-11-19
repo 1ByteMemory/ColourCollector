@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
 
 	[HideInInspector]
 	public float speed, range;
+	[HideInInspector]
+	public int damage;
 
 	Vector3 startPos;
 	Vector3 currPos;
@@ -26,4 +28,15 @@ public class Projectile : MonoBehaviour
 		}
 
 	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.CompareTag("Enemy"))
+		{
+			collision.GetComponentInChildren<Health>().TakeDamage(damage);
+
+			Destroy(gameObject);
+		}
+	}
+
 }

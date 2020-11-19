@@ -14,16 +14,14 @@ public class Weapon
     [HideInInspector]
     public int damage, projectilesPerShot;
 
-    private float endTime;
+    private float startTime;
 
     public void Fire(Vector2 origin, Vector2 direction)
 	{
-        if (Time.time >= endTime)
+        // Projectiles per seconds
+        if (Time.time - startTime >= 1 / firingSpeed)
         {
-            
-            endTime = firingSpeed / ;
-
-            Debug.Log(endTime);
+            startTime = Time.time;
 
             Vector2[] spread = BulletSpread(new Vector2(0, 0), origin, direction);
 
@@ -36,7 +34,7 @@ public class Weapon
 
                 proj.speed = travelSpeed;
                 proj.range = range;
-
+                proj.damage = damage;
             }
         }
 	}

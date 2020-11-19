@@ -22,7 +22,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (Cursor.visible) return;
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
 		{
             weapon.damage = stats.Damage;
             weapon.travelSpeed = stats.ShotSpeed;

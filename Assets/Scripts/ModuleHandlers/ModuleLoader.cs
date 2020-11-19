@@ -29,7 +29,12 @@ public class ModuleLoader
 				catch (System.NullReferenceException)
 				{
                     Debug.LogWarning("Failed to load: " + folder[i].name);
-					break;
+					continue;
+				}
+				catch (System.Exception)
+				{
+                    Debug.LogWarning("Failed to load: " + folder[i].name);
+                    continue;
 				}
             }
         }
