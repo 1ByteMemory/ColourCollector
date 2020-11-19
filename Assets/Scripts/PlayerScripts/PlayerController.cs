@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    PlayerStats playerStats;
+    [HideInInspector]
+    public PlayerStats playerStats;
 
     public int base_damage;
     public int base_shotSpeed;
