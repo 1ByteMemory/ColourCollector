@@ -7,6 +7,7 @@ public class PlayerWeapon : MonoBehaviour
 
     PlayerController player;
     Stats stats;
+    Vector2 aim;
 
     public Weapon weapon;
 
@@ -22,13 +23,15 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (Cursor.visible) return;
 
-        if (Input.GetButton("Fire1"))
+        aim = new Vector2(Input.GetAxisRaw("AimX"), Input.GetAxisRaw("AimY"));
+
+        if (aim.x != 0 || aim.y != 0)
 		{
             weapon.damage = stats.Damage;
             weapon.travelSpeed = stats.ShotSpeed;
             weapon.firingSpeed = stats.FiringSpeed;
             weapon.projectilesPerShot = stats.Shots;
-            weapon.Fire(transform.position, Vector2.up);
+            weapon.Fire(transform.position, aim);
 		}
     }
 }

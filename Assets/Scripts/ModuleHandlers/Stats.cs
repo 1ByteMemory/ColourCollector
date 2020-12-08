@@ -47,6 +47,14 @@ public class Stats
 	#endregion
 
 
+
+	//////////////////////////////////////////////
+	///                                        ///
+	///   Methods to get properties or values  ///
+	///			through a string               ///
+	///                                        ///
+	//////////////////////////////////////////////
+
 	public PropertyInfo[] GetAllVariables()
 	{
 		Type type = GetType();

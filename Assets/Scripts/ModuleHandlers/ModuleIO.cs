@@ -8,10 +8,12 @@ public class ModuleIO
     /// Reads a multistroke gesture from an XML file
     /// </summary>
     /// <param name="fileName"></param>
-    /// <returns></returns>
+    /// <returns>A list of modules</returns>
     public static ModuleContainer ReadModule(string fileName)
     {
         XmlDocument doc = new XmlDocument();
+        
+        // Loads the file as an xmlfile
         doc.LoadXml(fileName);
 
 
@@ -20,20 +22,22 @@ public class ModuleIO
         List<int> modifiers;
         string[] moduleNames;
 
+        // Attempts to read the file
         try
         {
-            
+            // Access all the Modules
             string ModulePath = "Modules/ModuleName";
             var moduleNodes = doc.SelectNodes(ModulePath);
 
             modules = new Module[moduleNodes.Count];
 
-
+            // Access the stats in ethe modules
             string statPath = "Modules/ModuleName/Stat";
             var statNodes = doc.SelectNodes(statPath);
 
             moduleNames = new string[moduleNodes.Count];
 
+            // Iterate through each module
 			for (int i = 0; i < moduleNodes.Count; i++)
 			{
                 moduleNames[i] = moduleNodes[i].Attributes["Name"].Value;
@@ -41,11 +45,13 @@ public class ModuleIO
                 statNames = new List<string>();
                 modifiers = new List<int>();
 
+                // Iterate through each node in the module
                 foreach (XmlNode node in moduleNodes)
 			    {
+                    // Make sure we access the correct module and its contents
                     if (node.Attributes["Name"].Value == moduleNames[i])
 					{
-
+                        // add its contents to a list
                         foreach (XmlNode item in node)
 						{
                             statNames.Add(item.Attributes["stat"].Value);
@@ -54,7 +60,10 @@ public class ModuleIO
                         break;
 					}
 			    }
-				ColorUtility.TryParseHtmlString(moduleNodes[i].Attributes["Color"].Value, out Color col);
+                // Convert the color from a hex string to a Color struct
+                ColorUtility.TryParseHtmlString(moduleNodes[i].Attributes["Color"].Value, out Color col);
+                
+                // Add a new module with all the info from the current selected node
 				modules[i] = new Module(moduleNames[i], col, statNames.ToArray(), modifiers.ToArray());
 			}
         }
@@ -63,37 +72,7 @@ public class ModuleIO
             if (doc != null)
                 doc.RemoveAll();
         }
+        // return the list of modules
         return new ModuleContainer(modules);
     }
-
-    /*
-    /// <summary>
-    /// Writes a multistroke gesture to an XML file
-    /// </summary>
-    public static void WriteGesture(PDollarGestureRecognizer.Point[] points, string gestureName, string fileName)
-    {
-        using (StreamWriter sw = new StreamWriter(fileName))
-        {
-            sw.WriteLine("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>");
-            sw.WriteLine("<Gesture Name = \"{0}\">", gestureName);
-            int currentStroke = -1;
-            for (int i = 0; i < points.Length; i++)
-            {
-                if (points[i].StrokeID != currentStroke)
-                {
-                    if (i > 0)
-                        sw.WriteLine("\t</Stroke>");
-                    sw.WriteLine("\t<Stroke>");
-                    currentStroke = points[i].StrokeID;
-                }
-
-                sw.WriteLine("\t\t<Point X = \"{0}\" Y = \"{1}\" T = \"0\" Pressure = \"0\" />",
-                    points[i].X, points[i].Y
-                );
-            }
-            sw.WriteLine("\t</Stroke>");
-            sw.WriteLine("</Gesture>");
-        }
-    }
-    */
 }
